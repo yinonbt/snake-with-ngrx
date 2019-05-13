@@ -10,5 +10,5 @@ export interface State {
 }
 
 export const selectors = {
-  getmatrixSize: fromSelectors.getMatrixSize
+  getMatrixSize: fromSelectors.getMatrixSize
 };
