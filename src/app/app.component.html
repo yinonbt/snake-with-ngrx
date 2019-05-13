@@ -1,13 +1,9 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div style="text-align:center" class="main-div">
   <h1>
     Welcome to {{ title }}!
   </h1>  
+  <app-cells-matrix></app-cells-matrix>
 </div>
-<div *ngFor="let row of cellsMatrix" class="matrix-row">
-  <ng-container *ngFor="let cell of row">
-    <app-cell [cell]="cell"></app-cell>
-  </ng-container>
-  
-</div>
+
 <router-outlet></router-outlet>
