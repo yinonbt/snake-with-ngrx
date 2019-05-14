@@ -4,6 +4,7 @@ import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
 import * as fromReducers from '../../store-entities/reducers';
 import { Observable, Subscription } from 'rxjs';
+import { CellType } from 'src/app/enums/cell-type.enum';
 
 @Component({
   selector: 'app-cells-matrix',
@@ -30,11 +31,13 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
     for (let i = 0; i < matrixSize; i++) {
       const row: Cell[] = [];
       for (let j = 0; j < matrixSize; j++) {
-        const cell: Cell = { row: i, column: j };
+        const cell: Cell = { row: i, column: j, cellType: CellType.Empty };
         row.push(cell);
       }
       cellsMatrix.push(row);
     }
+    const center = Math.floor(matrixSize / 2);
+    cellsMatrix[center][center].cellType = CellType.SnakeNode;
     this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
   }
 

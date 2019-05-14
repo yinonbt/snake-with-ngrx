@@ -1,3 +1,6 @@
-<div>
+<div [ngClass]="{
+  'emptyCell': cellTypes.Empty === cell.cellType,
+  'foodCell': cellTypes.Food === cell.cellType,
+  'snakeNodeCell': cellTypes.SnakeNode === cell.cellType}">
   <span>{{cell.row}},{{cell.column}}</span>
 </div>
