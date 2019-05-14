@@ -1,3 +1,4 @@
+import { MatrixGeneratedAction } from './../../store-entities/actions/matrix-generated-action';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
@@ -11,25 +12,33 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class CellsMatrixComponent implements OnInit, OnDestroy {
   subscriptionMatrixSize: Subscription;
-  cellsMatrix: Cell[][] = [];
+  cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
-  matrixSize = 30;
 
   constructor(private store: Store<fromReducers.State>) {
     this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
-    this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => console.log('matrix size retrieved from store: ', matrixSize));
-    for (let i = 0; i < this.matrixSize; i++) {
+    this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
+
+    this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
+      console.log('matrix size retrieved from store: ', matrixSize);
+      this.dispatchMatrixGenerated(matrixSize);
+    });
+  }
+
+  private dispatchMatrixGenerated(matrixSize: number) {
+    const cellsMatrix: Cell[][] = [];
+    for (let i = 0; i < matrixSize; i++) {
       const row: Cell[] = [];
-      for (let j = 0; j < this.matrixSize; j++) {
+      for (let j = 0; j < matrixSize; j++) {
         const cell: Cell = { row: i, column: j };
         row.push(cell);
       }
-      this.cellsMatrix.push(row);
+      cellsMatrix.push(row);
     }
+    this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     if (this.subscriptionMatrixSize) {

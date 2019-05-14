@@ -1,4 +1,4 @@
-<div *ngFor="let row of cellsMatrix" class="matrix-row">
+<div *ngFor="let row of cellsMatrix$ | async" class="matrix-row">
   <ng-container *ngFor="let cell of row">
     <app-cell [cell]="cell"></app-cell>
   </ng-container>  
