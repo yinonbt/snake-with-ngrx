@@ -36,8 +36,8 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
       }
       cellsMatrix.push(row);
     }
-    const center = Math.floor(matrixSize / 2);
-    cellsMatrix[center][center].cellType = CellType.SnakeNode;
+    // const center = Math.floor(matrixSize / 2);
+    // cellsMatrix[center][center].cellType = CellType.SnakeNode;
     this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
   }
 
