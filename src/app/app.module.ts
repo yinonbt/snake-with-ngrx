@@ -7,9 +7,10 @@ import { CellComponent } from './components/cell/cell.component';
 import { CellsMatrixComponent } from './components/cells-matrix/cells-matrix.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store-entities/reducers';
+import { GameControllerComponent } from './components/game-controller/game-controller.component';
 
 @NgModule({
-  declarations: [AppComponent, CellComponent, CellsMatrixComponent],
+  declarations: [AppComponent, CellComponent, CellsMatrixComponent, GameControllerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

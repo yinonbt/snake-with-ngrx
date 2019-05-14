@@ -2,8 +2,11 @@
 <div style="text-align:center" class="main-div">
   <h1>
     Welcome to {{ title }}!
-  </h1>  
-  <app-cells-matrix></app-cells-matrix>
+  </h1>
+  <div class="game-div">
+    <app-game-controller></app-game-controller>
+    <app-cells-matrix></app-cells-matrix>
+  </div>
 </div>
 
 <router-outlet></router-outlet>
