@@ -6,6 +6,7 @@ import * as fromReducers from '../../store-entities/reducers';
 import { MatrixGeneratedAction } from 'src/app/store-entities/actions/matrix-generated-action';
 import { CellType } from 'src/app/enums/cell-type.enum';
 import { GameStatus } from 'src/app/enums/game-status.enum';
+import { GameStatusAction } from 'src/app/store-entities/actions/game-status-action';
 
 @Component({
   selector: 'app-game-controller',
@@ -17,6 +18,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   subscriptionMatrixSize: Subscription;
   subscriptionCellsMatrix: Subscription;
+  subscriptionGameStatus: Subscription;
 
   cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
@@ -61,5 +63,9 @@ export class GameControllerComponent implements OnInit, OnDestroy {
       this.cellsMatrix[center][center].cellType = CellType.SnakeNode;
       this.store.dispatch(new MatrixGeneratedAction(this.cellsMatrix));
     }
+  }
+
+  togglePlaying() {
+    this.store.dispatch(new GameStatusAction(this.cellsMatrix));
   }
 }

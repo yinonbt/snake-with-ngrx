@@ -1,10 +1,14 @@
 <div [ngSwitch]="gameStatus$ | async" class="main-controller">
   <button (click)="displaySnake()">Display My Snake</button>
-  <button>
+  <button (click)="togglePlaying()">
     <span *ngSwitchCase="gameStatuses.Stopped">Start Playing</span>
-    <span *ngSwitchCase="gameStatuses.Paused">Resume Playing</span></button>
+    <span *ngSwitchCase="gameStatuses.Running">Pause Playing</span>
+    <span *ngSwitchCase="gameStatuses.Paused">Resume Playing</span>
+  </button>
+  <button [disabled]="!((gameStatus$ | async) === gameStatuses.Running)">Stop Playing</button>
   <span>Game Status:
     <span *ngSwitchCase="gameStatuses.Paused">Paused</span>
     <span *ngSwitchCase="gameStatuses.Running">Running</span>
-    <span *ngSwitchCase="gameStatuses.Stopped">Stopped</span></span>
+    <span *ngSwitchCase="gameStatuses.Stopped">Stopped</span>
+  </span>
 </div>
