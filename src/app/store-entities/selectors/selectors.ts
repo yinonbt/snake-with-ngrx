@@ -5,5 +5,9 @@ export const getMatrixSize = (state: State) => {
 };
 
 export const getCellsMatrix = (state: State) => {
-    return state.cellsMatrix;
-  };
+  return state.cellsMatrix;
+};
+
+export const getGameStatus = (state: State) => {
+  return state.gameStatus;
+};

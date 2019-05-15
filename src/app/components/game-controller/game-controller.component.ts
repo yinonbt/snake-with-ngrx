@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as fromReducers from '../../store-entities/reducers';
 import { MatrixGeneratedAction } from 'src/app/store-entities/actions/matrix-generated-action';
 import { CellType } from 'src/app/enums/cell-type.enum';
+import { GameStatus } from 'src/app/enums/game-status.enum';
 
 @Component({
   selector: 'app-game-controller',
@@ -12,11 +13,14 @@ import { CellType } from 'src/app/enums/cell-type.enum';
   styleUrls: ['./game-controller.component.scss']
 })
 export class GameControllerComponent implements OnInit, OnDestroy {
+  private gameStatuses = GameStatus;
+
   subscriptionMatrixSize: Subscription;
   subscriptionCellsMatrix: Subscription;
 
   cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
+  gameStatus$: Observable<GameStatus>;
 
   cellsMatrix: Cell[][];
   matrixSize: number;
@@ -24,6 +28,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromReducers.State>) {
     this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
     this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
+    this.gameStatus$ = store.select(fromReducers.selectors.getGameStatus);
 
     this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
       this.matrixSize = matrixSize;
