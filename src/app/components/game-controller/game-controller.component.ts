@@ -26,6 +26,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
   cellsMatrix: Cell[][];
   matrixSize: number;
+  gameStatus: GameStatus;
 
   constructor(private store: Store<fromReducers.State>) {
     this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
@@ -38,6 +39,10 @@ export class GameControllerComponent implements OnInit, OnDestroy {
 
     this.subscriptionCellsMatrix = this.cellsMatrix$.subscribe(cellsMatrix => {
       this.cellsMatrix = cellsMatrix;
+    });
+
+    this.subscriptionGameStatus = this.gameStatus$.subscribe(gameStatus => {
+      this.gameStatus = gameStatus;
     });
   }
 
@@ -66,6 +71,10 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   }
 
   togglePlaying() {
-    this.store.dispatch(new GameStatusAction(this.cellsMatrix));
+    let targetGameStatus = GameStatus.Running;
+    if (this.gameStatus === GameStatus.Running) {
+      targetGameStatus = GameStatus.Paused;
+    }
+    this.store.dispatch(new GameStatusAction(targetGameStatus));
   }
 }
