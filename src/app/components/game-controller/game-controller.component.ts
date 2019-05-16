@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
+import 'rxjs/add/operator/takeUntil';
 import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
 import * as fromReducers from '../../store-entities/reducers';
@@ -7,6 +8,7 @@ import { MatrixGeneratedAction } from 'src/app/store-entities/actions/matrix-gen
 import { CellType } from 'src/app/enums/cell-type.enum';
 import { GameStatus } from 'src/app/enums/game-status.enum';
 import { GameStatusAction } from 'src/app/store-entities/actions/game-status-action';
+import { takeUntil } from 'rxjs-compat/operator/takeUntil';
 
 @Component({
   selector: 'app-game-controller',
@@ -16,9 +18,7 @@ import { GameStatusAction } from 'src/app/store-entities/actions/game-status-act
 export class GameControllerComponent implements OnInit, OnDestroy {
   private gameStatuses = GameStatus;
 
-  subscriptionMatrixSize: Subscription;
-  subscriptionCellsMatrix: Subscription;
-  subscriptionGameStatus: Subscription;
+  destroy$: Subject<boolean> = new Subject<boolean>();
 
   cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
@@ -35,27 +35,23 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
+    this.matrixSize$.takeUntil(this.destroy$).subscribe(matrixSize => {
       this.matrixSize = matrixSize;
     });
 
-    this.subscriptionCellsMatrix = this.cellsMatrix$.subscribe(cellsMatrix => {
+    this.cellsMatrix$.takeUntil(this.destroy$).subscribe(cellsMatrix => {
       this.cellsMatrix = cellsMatrix;
     });
 
-    this.subscriptionGameStatus = this.gameStatus$.subscribe(gameStatus => {
+    this.gameStatus$.takeUntil(this.destroy$).subscribe(gameStatus => {
       this.gameStatus = gameStatus;
     });
   }
 
   ngOnDestroy(): void {
-    if (this.subscriptionMatrixSize) {
-      this.subscriptionMatrixSize.unsubscribe();
-    }
+    this.destroy$.next(true);
 
-    if (this.subscriptionCellsMatrix) {
-      this.subscriptionCellsMatrix.unsubscribe();
-    }
+    this.destroy$.unsubscribe();
   }
 
   displaySnake() {
