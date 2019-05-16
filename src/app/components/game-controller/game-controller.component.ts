@@ -32,7 +32,9 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
     this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
     this.gameStatus$ = store.select(fromReducers.selectors.getGameStatus);
+  }
 
+  ngOnInit() {
     this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
       this.matrixSize = matrixSize;
     });
@@ -45,8 +47,6 @@ export class GameControllerComponent implements OnInit, OnDestroy {
       this.gameStatus = gameStatus;
     });
   }
-
-  ngOnInit() {}
 
   ngOnDestroy(): void {
     if (this.subscriptionMatrixSize) {
