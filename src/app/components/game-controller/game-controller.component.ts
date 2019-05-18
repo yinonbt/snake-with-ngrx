@@ -16,7 +16,7 @@ import { takeUntil } from 'rxjs-compat/operator/takeUntil';
   styleUrls: ['./game-controller.component.scss']
 })
 export class GameControllerComponent implements OnInit, OnDestroy {
-  private gameStatuses = GameStatus;
+  gameStatuses = GameStatus;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
