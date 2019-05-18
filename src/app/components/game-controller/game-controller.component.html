@@ -1,6 +1,6 @@
 <div [ngSwitch]="gameStatus$ | async" class="main-controller">
   <button (click)="displaySnake()">Display My Snake</button>
-  <button (click)="togglePlaying()">
+  <button id="togglePlayingButton" (click)="togglePlaying()">
     <span *ngSwitchCase="gameStatuses.Stopped">Start Playing</span>
     <span *ngSwitchCase="gameStatuses.Running">Pause Playing</span>
     <span *ngSwitchCase="gameStatuses.Paused">Resume Playing</span>
