@@ -11,3 +11,7 @@ export const getCellsMatrix = (state: State) => {
 export const getGameStatus = (state: State) => {
   return state.gameStatus;
 };
+
+export const getSnakeDirection = (state: State) => {
+    return state.snakeDirection;
+  };
