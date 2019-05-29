@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CellComponent } from './components/cell/cell.component';
 import { CellsMatrixComponent } from './components/cells-matrix/cells-matrix.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './store-entities/reducers';
 import { GameControllerComponent } from './components/game-controller/game-controller.component';
 
@@ -14,7 +15,10 @@ import { GameControllerComponent } from './components/game-controller/game-contr
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(reducers) // import store with a map of reducers
+    StoreModule.forRoot(reducers), // import store with a map of reducers
+    StoreDevtoolsModule.instrument({
+      maxAge: 10
+    }),
     //EffectsModule.forRoot([CurrencyEffects])
   ],
   providers: [],
