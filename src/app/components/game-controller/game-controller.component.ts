@@ -3,11 +3,8 @@ import { Subscription, Observable, Subject } from 'rxjs';
 import 'rxjs/add/operator/takeUntil';
 import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
-import * as fromReducers from '../../store-entities/reducers/index_';
-import { MatrixGeneratedAction } from 'src/app/store-entities/actions/matrix-generated-action';
 import { CellType } from 'src/app/enums/cell-type.enum';
 import { GameStatus } from 'src/app/enums/game-status.enum';
-import { GameStatusAction } from 'src/app/store-entities/actions/game-status-action';
 import { takeUntil } from 'rxjs-compat/operator/takeUntil';
 import { SnakeDirection } from 'src/app/enums/snake-direction.enum';
 
@@ -31,12 +28,12 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   gameStatus: GameStatus;
   snakeDirection: SnakeDirection;
 
-  constructor(private store: Store<fromReducers.State_>) {
-    this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
-    this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
-    this.gameStatus$ = store.select(fromReducers.selectors.getGameStatus);
-    this.snakeDirection$ = store.select(fromReducers.selectors.getSnakeDirection);
-  }
+  // constructor(private store: Store<fromReducers.State_>) {
+  //   this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
+  //   this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
+  //   this.gameStatus$ = store.select(fromReducers.selectors.getGameStatus);
+  //   this.snakeDirection$ = store.select(fromReducers.selectors.getSnakeDirection);
+  // }
 
   ngOnInit() {
     this.matrixSize$.takeUntil(this.destroy$).subscribe(matrixSize => {
@@ -70,7 +67,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     ) {
       const center = Math.floor(this.matrixSize / 2);
       this.cellsMatrix[center][center].cellType = CellType.SnakeNode;
-      this.store.dispatch(new MatrixGeneratedAction(this.cellsMatrix));
+      // this.store.dispatch(new MatrixGeneratedAction(this.cellsMatrix));
     }
   }
 
@@ -79,10 +76,8 @@ export class GameControllerComponent implements OnInit, OnDestroy {
     if (this.gameStatus === GameStatus.Running) {
       targetGameStatus = GameStatus.Paused;
     }
-    this.store.dispatch(new GameStatusAction(targetGameStatus));
+    // this.store.dispatch(new GameStatusAction(targetGameStatus));
   }
 
-  playStep() {
-    
-  }
+  playStep() {}
 }

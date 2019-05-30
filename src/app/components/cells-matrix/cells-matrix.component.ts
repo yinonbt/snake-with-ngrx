@@ -1,8 +1,7 @@
-import { MatrixGeneratedAction } from './../../store-entities/actions/matrix-generated-action';
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
-import * as fromReducers from '../../store-entities/reducers/index_';
 import { Observable, Subscription } from 'rxjs';
 import { CellType } from 'src/app/enums/cell-type.enum';
 
@@ -16,15 +15,15 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
   cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
 
-  constructor(private store: Store<fromReducers.State_>) {
-    this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
-    this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
+  // constructor(private store: Store<fromReducers.State_>) {
+  //   this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
+  //   this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
 
-    this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
-      console.log('matrix size retrieved from store: ', matrixSize);
-      this.dispatchMatrixGenerated(matrixSize);
-    });
-  }
+  //   this.subscriptionMatrixSize = this.matrixSize$.subscribe(matrixSize => {
+  //     console.log('matrix size retrieved from store: ', matrixSize);
+  //     this.dispatchMatrixGenerated(matrixSize);
+  //   });
+  // }
 
   private dispatchMatrixGenerated(matrixSize: number) {
     const cellsMatrix: Cell[][] = [];
@@ -38,7 +37,7 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
     }
     // const center = Math.floor(matrixSize / 2);
     // cellsMatrix[center][center].cellType = CellType.SnakeNode;
-    this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
+    // this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
   }
 
   ngOnInit() {}
