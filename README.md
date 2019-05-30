@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## NGRX schematics:
+reference: https://www.dzurico.com/angular-ngrx-with-schematics/
+
+1. create index.ts and modify app.module.ts:
+    ng g store State --root --module=app.module.ts
+
+2. generate app.effects.ts and modify app.module.ts:
+    ng g effect App --root --module=app.module.ts
+
+3. create reducer action and effect for specific entity:
+    ng g feature snake/Snake --reducers=../reducers/index.ts

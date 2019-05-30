@@ -4,6 +4,7 @@ import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CellType } from 'src/app/enums/cell-type.enum';
+import { State } from 'src/app/snake/snake.reducer';
 
 @Component({
   selector: 'app-cells-matrix',
@@ -15,6 +16,7 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
   cellsMatrix$: Observable<Cell[][]>;
   matrixSize$: Observable<number>;
 
+  constructor(private store: Store<State>) {}
   // constructor(private store: Store<fromReducers.State_>) {
   //   this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
   //   this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
@@ -40,7 +42,9 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
     // this.store.dispatch(new MatrixGeneratedAction(cellsMatrix));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
   ngOnDestroy(): void {
     if (this.subscriptionMatrixSize) {
