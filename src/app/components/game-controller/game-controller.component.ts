@@ -5,8 +5,9 @@ import { Cell } from 'src/app/interfaces/cell';
 import { Store } from '@ngrx/store';
 import { CellType } from 'src/app/enums/cell-type.enum';
 import { GameStatus } from 'src/app/enums/game-status.enum';
-import { takeUntil } from 'rxjs-compat/operator/takeUntil';
 import { SnakeDirection } from 'src/app/enums/snake-direction.enum';
+import { State } from 'src/app/snake/snake.reducer';
+import { getMatrixSize } from 'src/app/reducers';
 
 @Component({
   selector: 'app-game-controller',
@@ -28,6 +29,7 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   gameStatus: GameStatus;
   snakeDirection: SnakeDirection;
 
+  constructor(private store: Store<State>) {}
   // constructor(private store: Store<fromReducers.State_>) {
   //   this.matrixSize$ = store.select(fromReducers.selectors.getMatrixSize);
   //   this.cellsMatrix$ = store.select(fromReducers.selectors.getCellsMatrix);
@@ -36,21 +38,23 @@ export class GameControllerComponent implements OnInit, OnDestroy {
   // }
 
   ngOnInit() {
+    this.matrixSize$ = this.store.select(getMatrixSize);
+
     this.matrixSize$.takeUntil(this.destroy$).subscribe(matrixSize => {
       this.matrixSize = matrixSize;
     });
 
-    this.cellsMatrix$.takeUntil(this.destroy$).subscribe(cellsMatrix => {
-      this.cellsMatrix = cellsMatrix;
-    });
+    // this.cellsMatrix$.takeUntil(this.destroy$).subscribe(cellsMatrix => {
+    //   this.cellsMatrix = cellsMatrix;
+    // });
 
-    this.gameStatus$.takeUntil(this.destroy$).subscribe(gameStatus => {
-      this.gameStatus = gameStatus;
-    });
+    // this.gameStatus$.takeUntil(this.destroy$).subscribe(gameStatus => {
+    //   this.gameStatus = gameStatus;
+    // });
 
-    this.snakeDirection$.takeUntil(this.destroy$).subscribe(snakeDirection => {
-      this.snakeDirection = snakeDirection;
-    });
+    // this.snakeDirection$.takeUntil(this.destroy$).subscribe(snakeDirection => {
+    //   this.snakeDirection = snakeDirection;
+    // });
   }
 
   ngOnDestroy(): void {

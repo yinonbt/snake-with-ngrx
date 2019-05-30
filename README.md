@@ -37,3 +37,13 @@ reference: https://www.dzurico.com/angular-ngrx-with-schematics/
 
 3. create reducer action and effect for specific entity:
     ng g feature snake/Snake --reducers=../reducers/index.ts
+
+## ngrx-store-freeze
+npm i --save-dev ngrx-store-freeze
+
+1. on reducers/index.ts:
+    import { storeFreeze } from 'ngrx-store-freeze';
+    
+    export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? [storeFreeze]
+  : [];
