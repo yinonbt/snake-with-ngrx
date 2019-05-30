@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { CellType } from 'src/app/enums/cell-type.enum';
 import { State } from 'src/app/snake/snake.reducer';
+import { getMatrixSize } from 'src/app/reducers';
 
 @Component({
   selector: 'app-cells-matrix',
@@ -43,7 +44,7 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+    this.matrixSize$ = this.store.select(getMatrixSize);
   }
 
   ngOnDestroy(): void {
