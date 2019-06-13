@@ -1,3 +1,4 @@
+import { getMatrix } from './../../reducers/index';
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Cell } from 'src/app/interfaces/cell';
@@ -44,7 +45,11 @@ export class CellsMatrixComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    console.log('ngOnInit matrixSize');
     this.matrixSize$ = this.store.select(getMatrixSize);
+
+    console.log('ngOnInit cellsMatrix');
+    this.cellsMatrix$ = this.store.select(getMatrix);
   }
 
   ngOnDestroy(): void {

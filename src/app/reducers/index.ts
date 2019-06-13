@@ -26,3 +26,7 @@ export const getMatrixSize = createSelector(
   getSnakeState,
   state => state.matrixSize
 );
+export const getMatrix = createSelector(
+  getSnakeState,
+  state => state.matrix
+);

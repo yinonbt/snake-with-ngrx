@@ -2,13 +2,14 @@ import { Action } from '@ngrx/store';
 
 export enum SnakeActionTypes {
   LoadMatrixSize = '[Snake] Load Matrix Size',
-  
-  
+  GenerateMatrix = '[Snake] Generate Matrix'
 }
 
-export class LoadSnakes implements Action {
+export class LoadMatrixSize implements Action {
   readonly type = SnakeActionTypes.LoadMatrixSize;
 }
 
-
-export type SnakeActions = LoadSnakes;
+export class GenerateMatrix implements Action {
+  readonly type = SnakeActionTypes.GenerateMatrix;
+}
+export type SnakeActions = LoadMatrixSize | GenerateMatrix;
